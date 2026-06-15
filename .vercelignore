@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files (add your own .env)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation (optional - remove if you want docs deployed)
+README.md
+INSTALLATION.md
+EXAMPLES.md
+QUICK_START.md
+CURL_COMMANDS.md
+PROJECT_SUMMARY.md
+
+# Git
+.git/
+.gitignore
+
+# Testing
+.nyc_output/
+coverage/
+
+# Build
+dist/
+build/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Misc
+*.log
+*.pid
+*.seed
+*.pid.lock

@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "name": "mail-service-nodemailer",
+  "env": {
+    "PORT": "3000",
+    "NODE_ENV": "production",
+    "DEFAULT_SMTP_HOST": "@default_smtp_host",
+    "DEFAULT_SMTP_PORT": "@default_smtp_port",
+    "DEFAULT_SMTP_USER": "@default_smtp_user",
+    "DEFAULT_SMTP_PASSWORD": "@default_smtp_password",
+    "DEFAULT_FROM_EMAIL": "@default_from_email",
+    "DEFAULT_FROM_NAME": "@default_from_name",
+    "RATE_LIMIT_WINDOW_MS": "3600000",
+    "RATE_LIMIT_MAX_REQUESTS": "100",
+    "ENABLE_CORS": "true",
+    "ALLOWED_ORIGINS": "*",
+    "REJECT_UNAUTHORIZED": "false"
+  },
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "crons": [],
+  "regions": ["iad1"],
+  "public": false
+}

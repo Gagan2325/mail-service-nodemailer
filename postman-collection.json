@@ -1,0 +1,245 @@
+{
+  "info": {
+    "_postman_id": "email-service-api-collection",
+    "name": "Email Service API Collection",
+    "description": "Complete Postman collection for Email Sending Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Check if Email Service is running and healthy"
+      },
+      "response": []
+    },
+    {
+      "name": "API Documentation",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ]
+        },
+        "description": "Get API information and available endpoints"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email - Gmail",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is success', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql(true);",
+              "});",
+              "",
+              "pm.test('Response has messageId', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.messageId).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"smtp_host\": \"smtp.gmail.com\",\n  \"smtp_port\": 587,\n  \"smtp_user\": \"your-email@gmail.com\",\n  \"smtp_pass\": \"your-app-password\",\n  \"from_email\": \"your-email@gmail.com\",\n  \"from_name\": \"My Company\",\n  \"to_email\": \"recipient@example.com\",\n  \"subject\": \"Welcome to Email Service\",\n  \"body\": \"<h1>Welcome!</h1><p>This is a test email from the Email Sending Service.</p>\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/send-email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "send-email"
+          ]
+        },
+        "description": "Send an email using Gmail SMTP"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email - Generic SMTP",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"smtp_host\": \"smtp.example.com\",\n  \"smtp_port\": 587,\n  \"smtp_user\": \"user@example.com\",\n  \"smtp_pass\": \"password\",\n  \"from_email\": \"user@example.com\",\n  \"from_name\": \"Example Company\",\n  \"to_email\": \"recipient@example.com\",\n  \"subject\": \"Test Email\",\n  \"body\": \"<h1>Hello World</h1><p>This is a test email.</p>\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/send-email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "send-email"
+          ]
+        },
+        "description": "Send an email using generic SMTP server"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email - With HTML Content",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"smtp_host\": \"smtp.gmail.com\",\n  \"smtp_port\": 587,\n  \"smtp_user\": \"your-email@gmail.com\",\n  \"smtp_pass\": \"your-app-password\",\n  \"from_email\": \"your-email@gmail.com\",\n  \"from_name\": \"My Company\",\n  \"to_email\": \"recipient@example.com\",\n  \"subject\": \"Rich HTML Email\",\n  \"body\": \"<html><body style=\\\"font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;\\\"><div style=\\\"background-color: white; border-radius: 8px; padding: 20px; max-width: 600px; margin: 0 auto;\\\"><h1 style=\\\"color: #333; margin-top: 0;\\\">Welcome to Our Service</h1><p style=\\\"color: #666; line-height: 1.6;\\\">Thank you for signing up! We're excited to have you on board.</p><button style=\\\"background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;\\\"><a href=\\\"https://example.com\\\" style=\\\"color: white; text-decoration: none;\\\">Get Started</a></button><hr style=\\\"border: none; border-top: 1px solid #ddd; margin: 20px 0;\\\"><p style=\\\"color: #999; font-size: 12px;\\\">© 2024 My Company. All rights reserved.</p></div></body></html>\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/send-email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "send-email"
+          ]
+        },
+        "description": "Send an email with rich HTML content and styling"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email - Invalid Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is failure', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql(false);",
+              "});",
+              "",
+              "pm.test('Response has errors', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.errors).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"smtp_host\": \"smtp.gmail.com\",\n  \"smtp_port\": 587,\n  \"smtp_user\": \"your-email@gmail.com\",\n  \"smtp_pass\": \"your-app-password\",\n  \"from_email\": \"invalid-email\",\n  \"from_name\": \"My Company\",\n  \"to_email\": \"recipient@example.com\",\n  \"subject\": \"Test Email\",\n  \"body\": \"Test content\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/send-email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "send-email"
+          ]
+        },
+        "description": "Test email endpoint with invalid email format (should fail validation)"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email - Missing Fields",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is failure', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql(false);",
+              "});",
+              "",
+              "pm.test('Response code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"smtp_host\": \"smtp.gmail.com\",\n  \"to_email\": \"recipient@example.com\",\n  \"subject\": \"Test Email\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/send-email",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "send-email"
+          ]
+        },
+        "description": "Test email endpoint with missing required fields (should fail validation)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
